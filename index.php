@@ -13,23 +13,28 @@
 	$pagesKeys = array_keys($pages);
 
 	$templates = "../tmpl";
+
+	$form = array (
+		"nome" => "Nome",
+		"cognome" => "Cognome"
+	);
 ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
 	<title>Webbing x2</title>
 	<link rel="stylesheet" type="text/css" href="style/style.css">
 	<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 
 
 </head>
 
 <body>
-	<div class="nav-down" id="header">
+	<div id="header">
 		<div class="container">
 
 			<did id="logo">
@@ -44,7 +49,6 @@
 								<?php if($k == $page) :?>
 									class="active"
 								<?php endif; ?>
-								data-hover="Desultory" 
 								href="index.php?page=<?php echo $k;?>" data-classe="immagine-b"> <?php echo "<span>".$v."</span>"; ?>
 						</a>
 					</li>
@@ -56,7 +60,9 @@
 	</div>
 
 	<div id="slideshow" class="immagine-a">
-		<a href="#"> Inizia ora</a>
+		<div class="button">
+			<a href="#"><strong> Inizia ora</strong></a>
+		</div>
 	</div>
 
 	<div class="content">
@@ -75,13 +81,22 @@
 
 			<form method="post" action="registrazione.php" class="form">
 				<h2>Inscriviti alla nostra newsletter</h2>
-				<input type="text" name="nome" placeholder="Nome">
-				<input type="text" name="nome" placeholder="Cognome">
-				<input type="email" name="email" autocomplete="on" placeholder="E-mail">
+
+				<?php foreach($form as $k => $v){
+					echo "<input type=\"text\" name=\"$k\" placeholder=\"$v\" data-validation=\"length\"
+					data-validation-length=\"min4\" > ";
+				}?>
+
+				<input type="email" name="email" autocomplete="on" placeholder="E-mail" class="required">
 				<input type="submit" value="Iscriviti">
 			</form>
 		</div>
 	</div>
+
+
+	<script>
+	  $.validate();
+	</script>
 
 </body>
 
